@@ -1,3 +1,5 @@
+import * as basicLightbox from 'basiclightbox';
+
 {
   /* <div class="overlay">
   <div class="modal">
@@ -5,8 +7,6 @@
   </div>
 </div>; */
 }
-
-import * as basicLightbox from 'basiclightbox';
 
 const instance = basicLightbox.create(`
     <div class="modal">
