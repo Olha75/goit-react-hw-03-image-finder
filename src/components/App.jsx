@@ -1,3 +1,5 @@
+import Post from './Post/Post';
+
 export const App = () => {
   return (
     <div
@@ -7,10 +9,13 @@ export const App = () => {
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 40,
-        color: '#010101'
+        color: '#010101',
       }}
     >
-      React homework template
+      <Post />
     </div>
   );
 };
+// Your API key: 35827866-cac2bfdbcf92b350627521ced
+
+export default App;
