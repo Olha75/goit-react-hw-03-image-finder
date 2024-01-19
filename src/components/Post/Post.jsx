@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import css from './post.module.css';
+// import css from './post.module.css';
 import { getAllPosts } from '../../api/posts';
 
 class Post extends Component {
