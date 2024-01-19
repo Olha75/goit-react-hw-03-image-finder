@@ -44,11 +44,10 @@ class Post extends Component {
 
   render() {
     const { posts, loading, error } = this.state;
-    const elements = posts.map(({ id, img, title, body }) => (
+    const elements = posts.map(({ id, webformatURL, largeImageUR }) => (
       <li key={id}>
-        <h3>{title}</h3>
-        <p>{body}</p>
-        <img>{img}</img>
+        {webformatURL}
+        {largeImageUR}
       </li>
     ));
 
@@ -57,7 +56,7 @@ class Post extends Component {
         {error && <p>помилка завантаження</p>}
         {loading && <p>...Loading</p>}
         {Boolean(elements.length)}
-        <ul>{elements}</ul>{' '}
+        <ul>{elements}</ul>
       </>
     );
   }
