@@ -1,3 +1,5 @@
+import css from './loader.module.css';
+
 {
-  /* <span class="loader"></span>; */
+  <span class="loader"></span>;
 }

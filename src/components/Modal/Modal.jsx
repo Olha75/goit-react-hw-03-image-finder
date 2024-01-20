@@ -1,4 +1,5 @@
 import * as basicLightbox from 'basiclightbox';
+import css from './modal.module.css';
 
 {
   /* <div class="overlay">

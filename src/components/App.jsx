@@ -1,4 +1,4 @@
-import Post from './Post/Post';
+import SearchForm from '../components/SearchForm/SearchForm';
 
 export const App = () => {
   return (
@@ -12,7 +12,7 @@ export const App = () => {
         color: '#010101',
       }}
     >
-      <Post />
+      <SearchForm />
     </div>
   );
 };
