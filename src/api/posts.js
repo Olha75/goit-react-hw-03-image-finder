@@ -15,7 +15,7 @@ export const getAllPosts = () => {
 };
 
 export const searchImages = q => {
-  return instance.get('/?q=${q}');
+  return instance.get('/?q=${q}&_limit=12');
 };
 
 // https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12

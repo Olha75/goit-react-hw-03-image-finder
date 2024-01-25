@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import css from './app.module.css';
+import CustomButton from './CustomButton/CustomButton';
 
 import ImageGallery from './ImageGallery/ImageGallery';
 import getAllPosts, { searchImages } from '../api/posts';
@@ -63,6 +64,7 @@ class App extends Component {
   render() {
     const { handleSearch } = this;
     const { items, loading, error } = this.state;
+    const isItems = Boolean(items.length);
 
     return (
       <div
@@ -79,7 +81,12 @@ class App extends Component {
           <SearchForm />
           {error && <p>помилка завантаження</p>}
           {loading && <p>...Loading</p>}
-          {Boolean(items.length) && <ImageGallery items={items} />}
+          {isItems && <ImageGallery items={items} />}
+          {isItems && (
+            <div>
+              <CustomButton type="button">Load more</CustomButton>
+            </div>
+          )}
         </>
       </div>
     );
