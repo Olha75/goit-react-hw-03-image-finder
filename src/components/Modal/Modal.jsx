@@ -1,12 +1,17 @@
 import * as basicLightbox from 'basiclightbox';
 import css from './modal.module.css';
 
-{
-  /* <div class="overlay">
-  <div class="modal">
-    <img src="" alt="" />
-  </div>
-</div>; */
+class Modal extends Component {
+  render() {
+    return (
+      <div className={css.overlay}>
+        <div className={css.modal}>
+          <span className={css.close}>X</span>
+          <img src="" alt="" />
+        </div>
+      </div>
+    );
+  }
 }
 
 const instance = basicLightbox.create(`
@@ -19,3 +24,5 @@ const instance = basicLightbox.create(`
 `);
 
 instance.show();
+
+export default Modal;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import css from './app.module.css';
 import CustomButton from './CustomButton/CustomButton';
-
+import Modal from './Modal/Modal';
 import ImageGallery from './ImageGallery/ImageGallery';
 import getAllPosts, { searchImages } from '../api/posts';
 
@@ -16,7 +16,7 @@ class App extends Component {
     page: 1,
   };
 
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(_, prevState) {
     const { search, page } = this.state;
     if (search && (search !== prevState.search || page !== prevState.page)) {
       this.setState({
@@ -41,6 +41,8 @@ class App extends Component {
 
   handleSearch = ({ search }) => {
     this.setState({ search });
+    items: [],
+      page: 1,
   };
 
   loadMore = () => {
@@ -94,6 +96,7 @@ class App extends Component {
               </CustomButton>
             </div>
           )}
+          <Modal/>
         </>
       </div>
     );
