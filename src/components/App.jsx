@@ -13,19 +13,20 @@ class App extends Component {
     items: [],
     loading: false,
     error: null,
+    page: 1,
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    const { search } = this.state;
-    if (search && search !== prevState.search) {
+    const { search, page } = this.state;
+    if (search && (search !== prevState.search || page !== prevState.page)) {
       this.setState({
         loading: true,
       });
       try {
-        const { data } = await searchImages(search);
-        this.setState({
-          items: data?.length ? data : [],
-        });
+        const { data } = await searchImages(search, page);
+        this.setState(({ items }) => ({
+          items: data?.length ? [...items, ...data] : items,
+        }));
       } catch (error) {
         this.setState({
           error: message,
@@ -40,6 +41,10 @@ class App extends Component {
 
   handleSearch = ({ search }) => {
     this.setState({ search });
+  };
+
+  loadMore = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
   };
 
   // async componentDidMount() {
@@ -62,7 +67,7 @@ class App extends Component {
   // }
 
   render() {
-    const { handleSearch } = this;
+    const { handleSearch, LoadMore } = this;
     const { items, loading, error } = this.state;
     const isItems = Boolean(items.length);
 
@@ -84,7 +89,9 @@ class App extends Component {
           {isItems && <ImageGallery items={items} />}
           {isItems && (
             <div>
-              <CustomButton type="button">Load more</CustomButton>
+              <CustomButton onClick={LoadMore} type="button">
+                Load more
+              </CustomButton>
             </div>
           )}
         </>
