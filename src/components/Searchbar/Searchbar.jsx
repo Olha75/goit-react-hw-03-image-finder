@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import css from './searchbar.module.css';
 
+
+export Searchbar from Component
 {
   <header class="searchbar">
     <form class="form">
