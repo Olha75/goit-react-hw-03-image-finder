@@ -1,9 +1,9 @@
 import React from 'react';
 import css from './imageGallery.module.css';
 
-const ImageGallery = ({ items }) => {
+const ImageGallery = ({ showModal, items }) => {
   const elements = items.map(({ id, webformatURL, largeImageURL }) => (
-    <li key={id}>
+    <li key={id} onClick={() => showModal({ id, webformatURL, largeImageURL })}>
       <img src={webformatURL} alt={`Image ${id}`} />
       <img src={largeImageURL} alt={`Large Image ${id}`} />
     </li>

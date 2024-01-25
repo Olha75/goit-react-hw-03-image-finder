@@ -1,28 +1,51 @@
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
+import { createPortal } from 'react-dom';
 import css from './modal.module.css';
 
-class Modal extends Component {
-  render() {
-    return (
-      <div className={css.overlay}>
-        <div className={css.modal}>
-          <span className={css.close}>X</span>
-          <img src="" alt="" />
-        </div>
+const modalRoot = document.getElementById('modal-root');
+
+const Modal = ({ children, close }) => {
+  useEffect(() => {
+    const instance = basicLightbox.create(children, {
+      onShow: () => {
+        document.body.style.overflow = 'hidden';
+      },
+      onClose: () => {
+        document.body.style.overflow = 'visible';
+        close();
+      },
+    });
+
+    instance.show();
+
+    return () => instance.close();
+  }, [children, close]);
+
+  const closeModal = event => {
+    if (event.target === event.currentTarget || event.code === 'Escape') {
+      close();
+    }
+  };
+
+  return createPortal(
+    <div className={css.overlay} onClick={closeModal}>
+      <div className={css.modal}>
+        <span onClick={close} className={css.close}>
+          X
+        </span>
+        {children}
       </div>
-    );
-  }
-}
+    </div>,
+    modalRoot
+  );
+};
 
-const instance = basicLightbox.create(`
-    <div class="modal">
-        <p>
-            Your first lightbox with just a few lines of code.
-            Yes, it's really that simple.
-        </p>
-    </div>
-`);
-
-instance.show();
+Modal.propTypes = {
+  children: PropTypes.node.isRequired,
+  close: PropTypes.func.isRequired,
+};
 
 export default Modal;

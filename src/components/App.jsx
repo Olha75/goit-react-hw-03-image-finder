@@ -3,7 +3,7 @@ import css from './app.module.css';
 import CustomButton from './CustomButton/CustomButton';
 import Modal from './Modal/Modal';
 import ImageGallery from './ImageGallery/ImageGallery';
-import getAllPosts, { searchImages } from '../api/posts';
+import { searchImages } from '../api/posts';
 
 import SearchForm from '../components/SearchForm/SearchForm';
 
@@ -14,6 +14,8 @@ class App extends Component {
     loading: false,
     error: null,
     page: 1,
+    modalOpen: false,
+    itemDetails: {},
   };
 
   async componentDidUpdate(_, prevState) {
@@ -29,7 +31,7 @@ class App extends Component {
         }));
       } catch (error) {
         this.setState({
-          error: message,
+          error: error.message,
         });
       } finally {
         this.setState({
@@ -40,13 +42,29 @@ class App extends Component {
   }
 
   handleSearch = ({ search }) => {
-    this.setState({ search });
-    items: [],
-      page: 1,
+    this.setState({ search, items: [], page: 1 });
   };
 
   loadMore = () => {
     this.setState(({ page }) => ({ page: page + 1 }));
+  };
+
+  showModal = ({ id, webformatURL, largeImageURL }) => {
+    this.setState({
+      modalOpen: true,
+      itemDetails: {
+        id,
+        webformatURL,
+        largeImageURL,
+      },
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalOpen: false,
+      itemDetails: {},
+    });
   };
 
   // async componentDidMount() {
@@ -69,8 +87,8 @@ class App extends Component {
   // }
 
   render() {
-    const { handleSearch, LoadMore } = this;
-    const { items, loading, error } = this.state;
+    const { handleSearch, loadMore, showModal, closeModal } = this;
+    const { items, loading, error, modalOpen, itemDetails } = this.state;
     const isItems = Boolean(items.length);
 
     return (
@@ -85,92 +103,33 @@ class App extends Component {
         }}
       >
         <>
-          <SearchForm />
+          <SearchForm onSubmit={handleSearch} />
           {error && <p>помилка завантаження</p>}
           {loading && <p>...Loading</p>}
-          {isItems && <ImageGallery items={items} />}
+          {isItems && <ImageGallery showModal={showModal} items={items} />}
           {isItems && (
             <div>
-              <CustomButton onClick={LoadMore} type="button">
+              <CustomButton onClick={loadMore} type="button">
                 Load more
               </CustomButton>
             </div>
           )}
-          <Modal/>
+          {modalOpen && (
+            <Modal close={closeModal}>
+              <img
+                src={itemDetails.webformatURL}
+                alt={`Image ${itemDetails.id}`}
+              />
+              <img
+                src={itemDetails.largeImageURL}
+                alt={`Large Image ${itemDetails.id}`}
+              />
+            </Modal>
+          )}
         </>
       </div>
     );
   }
 }
 
-// Your API key: 35827866-cac2bfdbcf92b350627521ced
-// Uncomment the import and use of getAllPosts once it's properly imported
-
 export default App;
-
-// import { Component } from 'react';
-// // import css from './post.module.css';
-// import { getAllPosts } from '../../api/posts';
-
-// class Post extends Component {
-//   state = {
-//     posts: [],
-//     loading: false,
-//     error: null,
-//   };
-
-//   async componentDidMount() {
-//     this.setState({ loading: true });
-//     try {
-//       const { data } = await getAllPosts();
-//       this.setState({
-//         posts: data?.length ? data : [],
-//       });
-//     } catch (error) {
-//       this.setState({
-//         error: error.message,
-//       });
-//     } finally {
-//       this.setState({
-//         loading: false,
-//       });
-//     }
-
-//     // getAllPosts()
-//     //   .then(({ data }) => {
-//     //     this.setState({
-//     //       posts: data?.length ? data : [],
-//     //     });
-//     //   })
-//     //   .catch(error => {
-//     //     this.setState({
-//     //       error: error.message,
-//     //     });
-//     //   })
-//     //   .finally(() => {
-//     //     this.setState({ loading: false });
-//     //   });
-//   }
-
-//   render() {
-//     const { posts, loading, error } = this.state;
-//     const elements = posts.map(({ id, webformatURL, largeImageUR }) => (
-//       <li key={id}>
-//         {webformatURL}
-//         {largeImageUR}
-//       </li>
-//     ));
-
-//     return (
-//       <>
-//         {error && <p>помилка завантаження</p>}
-//         {loading && <p>...Loading</p>}
-//         {Boolean(elements.length)}
-//         <ul>{elements}</ul>
-//       </>
-//     );
-//   }
-// }
-
-// export default Post;
-// 'https://pixabay.com/api/?q=cat&page=1&key=35827866-cac2bfdbcf92b350627521ced&image_type=photo&orientation=horizontal&per_page=12';

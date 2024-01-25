@@ -2,20 +2,31 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: 'https://pixabay.com/api',
+  params: {
+    key: '35827866-cac2bfdbcf92b350627521ced',
+    image_type: 'photo',
+    orientation: 'horizontal',
+  },
 });
 
-const apiKey = '35827866-cac2bfdbcf92b350627521ced';
+// const apiKey = '35827866-cac2bfdbcf92b350627521ced';
 
-export const getAllPosts = () => {
-  const params = {
-    key: apiKey,
-  };
+// export const getAllPosts = () => {
+//   const params = {
+//     key: apiKey,
+//   };
 
-  return instance.get('/', { params });
-};
+//   return instance.get('/', { params });
+// };
 
 export const searchImages = (q, _page = 1) => {
-  return instance.get('/?q=${q}&_limit=12&_page=&{_page}');
+  return instance.get('/', {
+    params: {
+      q,
+      _limit: 12,
+      _page,
+    },
+  });
 };
 
 // https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
