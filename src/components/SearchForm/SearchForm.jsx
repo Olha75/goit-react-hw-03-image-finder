@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import css from './searchForm.module.css';
+import React, { Component } from 'react';
+import css from './searchform.module.css';
 
 class SearchForm extends Component {
   state = {
@@ -15,7 +15,7 @@ class SearchForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit({ ...this.state });
+    this.props.onSubmit({ ...this.state }); // Змінено на виклик this.props.onSubmit
     this.setState({
       search: '',
     });
@@ -26,19 +26,22 @@ class SearchForm extends Component {
     const { search } = this.state;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form className={css.searchForm} onSubmit={handleSubmit}>
         <div>
           <label>Введіть слово для пошуку зображення</label>
           <input
+            className={css.searchFormInput}
             value={search}
             onChange={handleChange}
             required
             type="text"
             name="search"
-            plaseholder="Введіть слово"
+            placeholder="Введіть слово"
           />
         </div>
-        <button type="submit">search</button>
+        <button className={css.searchFormButton} type="submit">
+          Пошук
+        </button>
       </form>
     );
   }

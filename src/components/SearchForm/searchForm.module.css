@@ -1,4 +1,4 @@
-.SearchForm {
+.searchForm {
   display: flex;
   align-items: center;
   width: 100%;
@@ -8,12 +8,11 @@
   overflow: hidden;
 }
 
-.SearchForm-button {
+.searchFormButton {
   display: inline-block;
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -23,11 +22,11 @@
   outline: none;
 }
 
-.SearchForm-button:hover {
+.searchFormButton:hover {
   opacity: 1;
 }
 
-.SearchForm-button-label {
+/* .SearchForm-button-label {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -37,9 +36,9 @@
   white-space: nowrap;
   clip-path: inset(50%);
   border: 0;
-}
+} */
 
-.SearchForm-input {
+.searchFormInput {
   display: inline-block;
   width: 100%;
   font: inherit;
@@ -48,9 +47,10 @@
   outline: none;
   padding-left: 4px;
   padding-right: 4px;
+  background-color: aqua;
 }
 
-.SearchForm-input::placeholder {
+.searchFormInput::placeholder {
   font: inherit;
   font-size: 18px;
 }

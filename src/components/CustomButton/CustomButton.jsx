@@ -1,9 +1,9 @@
-import css from './customButton.module.css';
+// import css from './customButton.module.css';
 
-const CustomButton = ({ onClick, type = 'submit', children }) => {
+const CustomButton = ({ onClick, type = 'submit' }) => {
   return (
-    <button jnClick={onClick} type={type}>
-      {children}
+    <button onClick={onClick} type={type}>
+      load more
     </button>
   );
 };

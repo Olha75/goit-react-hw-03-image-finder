@@ -1,18 +1,27 @@
 import React from 'react';
 import css from './imageGallery.module.css';
 
-const ImageGallery = ({ showModal, items }) => {
-  const elements = items.map(({ id, webformatURL, largeImageURL }) => (
-    <li key={id} onClick={() => showModal({ id, webformatURL, largeImageURL })}>
-      <img src={webformatURL} alt={`Image ${id}`} />
-      <img src={largeImageURL} alt={`Large Image ${id}`} />
-    </li>
-  ));
+import PropTypes from 'prop-types';
 
-  return <ul className={css.gallery}>{elements}</ul>;
+const ImageGallery = ({ children }) => {
+  return <ul className={css.gallery}>{children}</ul>;
+};
+
+ImageGallery.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ImageGallery;
+// const ImageGallery = ({ showModal, items }) => {
+//   const elements = items.map(({ id, webformatURL, largeImageURL }) => (
+//     <li key={id} onClick={() => showModal({ id, webformatURL, largeImageURL })}>
+//       <img src={webformatURL} alt="" />
+//       <img src={largeImageURL} alt="" />
+//     </li>
+//   ));
+
+//   return <ul className={css.gallery}>{elements}</ul>;
+// };
 
 // import css from './imageGallery.module.css';
 

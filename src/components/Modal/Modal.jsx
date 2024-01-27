@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 import { createPortal } from 'react-dom';
@@ -7,45 +6,59 @@ import css from './modal.module.css';
 
 const modalRoot = document.getElementById('modal-root');
 
-const Modal = ({ children, close }) => {
-  useEffect(() => {
-    const instance = basicLightbox.create(children, {
+class Modal extends Component {
+  componentDidMount() {
+    this.showModal();
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  showModal = () => {
+    const { children } = this.props;
+
+    this.instance = basicLightbox.create(children, {
       onShow: () => {
         document.body.style.overflow = 'hidden';
       },
       onClose: () => {
         document.body.style.overflow = 'visible';
-        close();
+        this.props.close();
       },
     });
 
-    instance.show();
+    this.instance.show();
+  };
 
-    return () => instance.close();
-  }, [children, close]);
-
-  const closeModal = event => {
-    if (event.target === event.currentTarget || event.code === 'Escape') {
-      close();
+  handleKeyDown = event => {
+    if (event.code === 'Escape') {
+      this.props.close();
     }
   };
 
-  return createPortal(
-    <div className={css.overlay} onClick={closeModal}>
-      <div className={css.modal}>
-        <span onClick={close} className={css.close}>
-          X
-        </span>
-        {children}
-      </div>
-    </div>,
-    modalRoot
-  );
-};
+  closeModal = event => {
+    if (event.target === event.currentTarget) {
+      this.props.close();
+    }
+  };
 
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-  close: PropTypes.func.isRequired,
-};
+  render() {
+    const { children } = this.props;
+
+    return createPortal(
+      <div className={css.overlay} onClick={this.closeModal}>
+        <div className={css.modal}>
+          <span onClick={this.props.close} className={css.close}>
+            X
+          </span>
+          {children}
+        </div>
+      </div>,
+      modalRoot
+    );
+  }
+}
 
 export default Modal;
