@@ -1,21 +1,17 @@
-// import css from './ImageGalleryItem.module.css';
+import css from './ImageGalleryItem.module.css';
 
-import React from 'react';
-
-const ImageGalleryItem = ({ showModal, item }) => {
-  const { id, webformatURL, largeImageURL } = item;
-
+const ImageGalleryItem = ({ id, webformatURL, largeImageURL, showModal }) => {
   return (
-    <li key={id} onClick={() => showModal({ webformatURL, largeImageURL })}>
-      <img src={webformatURL} alt={`${id}`} />
-      <img src={largeImageURL} alt={`${id}`} />
+    <li
+      className={css.imageGalleryItem}
+      onClick={() => {
+        showModal(largeImageURL);
+      }}
+      // className={css.galleryItem}
+    >
+      <img className={css.imageGalleryItem_image} src={webformatURL} alt="" />
     </li>
   );
 };
 
 export default ImageGalleryItem;
-
-//   <li class="gallery-item">
-//     <img src="" alt="" />
-//   </li>;
-// }

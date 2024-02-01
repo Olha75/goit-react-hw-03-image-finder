@@ -18,13 +18,3 @@
   border-radius: 10px;
   padding: 25px 15px 15px;
 }
-
-.close {
-  font-size: 18px;
-  font-weight: bold;
-  color: red;
-  cursor: pointer;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
