@@ -37,7 +37,7 @@ class App extends Component {
         this.setState(({ items }) => ({
           items: [...items, ...data.hits],
           // items: data.hits?.length ? [...items, ...data.hits] : items,
-          // totalHits: data.totalHits,
+          totalHits: data.totalHits,
         }));
       } else {
         alert('Вибачте, сталася помилка, спробуйте ще.');
@@ -94,7 +94,7 @@ class App extends Component {
           color: '#010101',
         }}
       >
-        <Searchbar onSubmit={this.handleSearch} />
+        <Searchbar onSubmit={handleSearch} />
         {error && <p className={css.error}>помилка завантаження</p>}
         {loading && <Loader />}
         {/* <SearchBar searchImages={searchImages} /> */}
@@ -102,7 +102,7 @@ class App extends Component {
         {isItems && items.length < totalHits ? (
           <div className={css.buttonLM}>
             <Button onClick={loadMore} type="button">
-              Load more
+              Продовжити
             </Button>
           </div>
         ) : null}

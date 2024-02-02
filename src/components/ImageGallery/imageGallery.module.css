@@ -9,7 +9,5 @@
   list-style: none;
   margin-left: auto;
   margin-right: auto;
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: center; */
+  background: linear-gradient(to bottom, #3f51b5, #ffffff);
 }

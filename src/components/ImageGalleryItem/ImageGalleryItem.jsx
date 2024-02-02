@@ -7,9 +7,8 @@ const ImageGalleryItem = ({ id, webformatURL, largeImageURL, showModal }) => {
       onClick={() => {
         showModal(largeImageURL);
       }}
-      // className={css.galleryItem}
     >
-      <img className={css.imageGalleryItem_image} src={webformatURL} alt="" />
+      <img className={css.imageGalleryItem_imager} src={webformatURL} alt="" />
     </li>
   );
 };
