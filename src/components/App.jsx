@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import CustomButton from './CustomButton/CustomButton';
+import Button from './Button/Button';
 import Modal from './Modal/Modal';
-import SearchForm from '../components/SearchForm/SearchForm';
-import SearchBar from './Searchbar/Searchbar';
+import Searchbar from './Searchbar/Searchbar';
 import Loader from './Loader/Loader';
 import { searchImages } from '../api/posts';
 import css from './app.module.css';
@@ -88,29 +87,27 @@ class App extends Component {
       <div
         style={{
           // height: '100vh',
-          display: 'flex',
+          // display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
         }}
       >
-        <SearchForm onSubmit={handleSearch} />
+        <Searchbar onSubmit={this.handleSearch} />
         {error && <p className={css.error}>помилка завантаження</p>}
         {loading && <Loader />}
         {/* <SearchBar searchImages={searchImages} /> */}
         {isItems && <ImageGallery items={items} showModal={showModal} />}
         {isItems && items.length < totalHits ? (
-          <CustomButton onClick={loadMore} type="button">
-            Load more
-          </CustomButton>
+          <div className={css.buttonLM}>
+            <Button onClick={loadMore} type="button">
+              Load more
+            </Button>
+          </div>
         ) : null}
         {modalOpen && (
           <Modal largeImageURL={itemDetails.largeImageURL} close={closeModal} />
-
-          // <Modal close={this.closeModal}>
-          //   <img src={itemDetails.largeImageURL} alt="" />
-          // </Modal>
         )}
       </div>
     );
