@@ -36,7 +36,6 @@ class App extends Component {
       if (data.hits && data.hits.length > 0) {
         this.setState(({ items }) => ({
           items: [...items, ...data.hits],
-          // items: data.hits?.length ? [...items, ...data.hits] : items,
           totalHits: data.totalHits,
         }));
       } else {
@@ -81,13 +80,9 @@ class App extends Component {
       this.state;
     const isItems = Boolean(items.length);
 
-    // console.log('App - items:', items);
-
     return (
       <div
         style={{
-          // height: '100vh',
-          // display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
@@ -97,7 +92,6 @@ class App extends Component {
         <Searchbar onSubmit={handleSearch} />
         {error && <p className={css.error}>помилка завантаження</p>}
         {loading && <Loader />}
-        {/* <SearchBar searchImages={searchImages} /> */}
         {isItems && <ImageGallery items={items} showModal={showModal} />}
         {isItems && items.length < totalHits ? (
           <div className={css.buttonLM}>
